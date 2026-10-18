@@ -1,0 +1,86 @@
+{
+  "name": "alfasix/alfakit-kanban",
+  "description": "Kanban boards for any Eloquent model in AlfaKit panels: drag and drop with keyboard and touch, WIP limits, transitions, swimlanes and authorised, tenant-scoped moves.",
+  "keywords": [
+    "laravel",
+    "alfakit",
+    "kanban",
+    "board",
+    "drag-and-drop",
+    "sortable"
+  ],
+  "homepage": "https://alfakit.dev/docs/plugins/kanban",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Alfa Six",
+      "homepage": "https://alfasixbh.com",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/alfasixbh/alfakit/issues",
+    "source": "https://github.com/alfasixbh/alfakit/tree/main/packages/plugins/kanban"
+  },
+  "require": {
+    "php": "^8.3",
+    "alfasix/alfakit": "^0.1|@dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "AlfaSix\\AlfakitKanban\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AlfaSix\\AlfakitKanban\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "AlfaSix\\AlfakitKanban\\AlfakitKanbanServiceProvider"
+      ]
+    },
+    "alfakit": {
+      "version": "^0.1",
+      "frontend": null,
+      "showcase": {
+        "demoPath": "orders/board",
+        "tour": [
+          "Open Sales > Order board",
+          "Drag an order to the next column",
+          "Filter and search the cards",
+          "Move a card with the keyboard"
+        ],
+        "clips": [
+          "react-light",
+          "react-dark",
+          "vue-light",
+          "vue-dark",
+          "svelte-light",
+          "svelte-dark"
+        ],
+        "worksWith": [
+          "workflows",
+          "comments",
+          "calendar"
+        ],
+        "highlights": [
+          "Boards for any Eloquent model",
+          "Drag and drop with keyboard and touch",
+          "WIP limits and transitions",
+          "Swimlanes",
+          "Search, filters and polling",
+          "Authorised, tenant-scoped moves"
+        ]
+      }
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
