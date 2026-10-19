@@ -1,6 +1,8 @@
 # AlfaKit Kanban
 
-<p><picture><source media="(prefers-color-scheme: dark)" srcset="../../../art/alfasix/alfa-six-micro-white.svg"><img src="../../../art/alfasix/alfa-six-micro-navy.svg" alt="" width="24" height="18" align="top"></picture> <sub>by <a href="https://alfasixbh.com">Alfa Six</a></sub></p>
+<p><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/alfasixbh/alfakit/main/art/alfasix/alfa-six-micro-white.svg"><img src="https://raw.githubusercontent.com/alfasixbh/alfakit/main/art/alfasix/alfa-six-micro-navy.svg" alt="" width="24" height="18" align="top"></picture> <sub>by <a href="https://alfasixbh.com">Alfa Six</a></sub></p>
+
+> This is a read-only split of the [AlfaKit monorepo](https://github.com/alfasixbh/alfakit/tree/main/packages/plugins/kanban). Please open issues and pull requests there.
 
 Kanban boards for any Eloquent model in [AlfaKit](https://alfakit.dev) panels: a resource board page and a dashboard widget, with columns from an enum, a relationship or a closure, rich cards, drag and drop with mouse, touch and keyboard, WIP limits, transitions, swimlanes, search and filters. Every move is one authorised, validated and tenant-scoped request.
 
