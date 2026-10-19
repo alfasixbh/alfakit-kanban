@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 return [
 
+    'page' => [
+        'title' => 'Bord: :label',
+    ],
+
     'validation' => [
         'unknown_column' => 'Die kolom bestaat niet. Laad het bord opnieuw en probeer het nog eens.',
         'transition' => ':title kan niet van :from naar :to worden verplaatst.',

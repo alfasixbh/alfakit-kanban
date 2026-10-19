@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 return [
 
+    'page' => [
+        'title' => ':label看板',
+    ],
+
     'validation' => [
         'unknown_column' => '该列不存在。请重新加载看板后重试。',
         'transition' => '无法将 :title 从 :from 移动到 :to。',

@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 return [
 
+    'page' => [
+        'title' => 'Bacheca: :label',
+    ],
+
     'validation' => [
         'unknown_column' => 'Questa colonna non esiste. Ricarica la bacheca e riprova.',
         'transition' => ':title non può essere spostato da :from a :to.',

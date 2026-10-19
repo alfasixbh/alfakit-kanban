@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 return [
 
+    'page' => [
+        'title' => 'Доска: :label',
+    ],
+
     'validation' => [
         'unknown_column' => 'Такой колонки нет. Перезагрузите доску и попробуйте снова.',
         'transition' => 'Нельзя переместить :title из :from в :to.',

@@ -47,14 +47,25 @@ abstract class KanbanPage extends Page
         return static::getResource()::canViewAny();
     }
 
+    /**
+     * The board's own name ("Tasks board"), for its sub-navigation item.
+     */
     public static function getNavigationLabel(): string
     {
-        return \AlfaSix\Alfakit\Support\Html::toText(static::getResource()::getNavigationLabel());
+        return static::$navigationLabel ?? static::getBoardTitle();
     }
 
     public function getTitle(): string
     {
-        return static::$title ?? static::getResource()::getTitleCasePluralModelLabel();
+        return static::getBoardTitle();
+    }
+
+    /**
+     * `$title`, else ":label board" with the resource's plural model label ("Tasks board").
+     */
+    public static function getBoardTitle(): string
+    {
+        return static::$title ?? (string) __('alfakit-kanban::kanban.page.title', ['label' => static::getResource()::getTitleCasePluralModelLabel()]);
     }
 
     public function getBreadcrumbs(): array

@@ -445,7 +445,7 @@ trait InteractsWithKanban
         $title = static::$titleAttribute !== null ? $record->getAttribute(static::$titleAttribute) : null;
         $resource = $this->getResourceClass();
 
-        if ($title === null && $resource !== null) {
+        if ($title === null && $resource !== null && $resource::hasRecordTitle()) {
             $title = $resource::getRecordTitle($record);
         }
 

@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 return [
 
+    'page' => [
+        'title' => 'Tablero: :label',
+    ],
+
     'validation' => [
         'unknown_column' => 'Esa columna no existe. Recarga el tablero e inténtalo de nuevo.',
         'transition' => ':title no se puede mover de :from a :to.',

@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 return [
 
+    // The board page's default title; :label is the resource's plural model label.
+    'page' => [
+        'title' => ':label board',
+    ],
+
     'validation' => [
         'unknown_column' => 'That column does not exist. Reload the board and try again.',
         'transition' => ':title cannot be moved from :from to :to.',

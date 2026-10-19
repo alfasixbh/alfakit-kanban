@@ -138,6 +138,24 @@ it('renders the board with enum columns, ordered cards and their content', funct
         ->and($card)->not->toHaveKey('movable');
 });
 
+it('titles the board page after the board, not the resource list', function (): void {
+    kanbanPanel();
+    kanbanTest()->actingAs(kanbanUser());
+
+    [, , $page] = kanbanPage();
+
+    expect($page['title'])->toBe('Tasks board')
+        ->and(TaskBoard::getNavigationLabel())->toBe('Tasks board')
+        ->and($page['heading'])->toBe('Tasks board')
+        ->and(array_column($page['breadcrumbs'], 'label'))->toBe(['Tasks', 'Tasks board']);
+
+    app()->setLocale('fr');
+
+    expect(TaskBoard::getBoardTitle())->toBe('Tableau : Tasks');
+
+    app()->setLocale('en');
+});
+
 it('moves a card to another column and position in one request', function (): void {
     Event::fake([CardMoved::class]);
     kanbanPanel();

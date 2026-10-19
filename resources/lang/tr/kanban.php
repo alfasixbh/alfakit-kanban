@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 return [
 
+    'page' => [
+        'title' => ':label panosu',
+    ],
+
     'validation' => [
         'unknown_column' => 'Bu sütun yok. Panoyu yeniden yükleyip tekrar deneyin.',
         'transition' => ':title, :from sütunundan :to sütununa taşınamaz.',

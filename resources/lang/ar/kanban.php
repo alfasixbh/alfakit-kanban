@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 return [
 
+    'page' => [
+        'title' => 'لوحة :label',
+    ],
+
     'validation' => [
         'unknown_column' => 'هذا العمود غير موجود. أعد تحميل اللوحة وحاول مرة أخرى.',
         'transition' => 'لا يمكن نقل :title من :from إلى :to.',

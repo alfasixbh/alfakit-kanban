@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 return [
 
+    'page' => [
+        'title' => 'Board: :label',
+    ],
+
     'validation' => [
         'unknown_column' => 'Diese Spalte existiert nicht. Laden Sie das Board neu und versuchen Sie es erneut.',
         'transition' => ':title kann nicht von :from nach :to verschoben werden.',

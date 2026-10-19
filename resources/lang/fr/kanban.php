@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 return [
 
+    'page' => [
+        'title' => 'Tableau : :label',
+    ],
+
     'validation' => [
         'unknown_column' => 'Cette colonne n\'existe pas. Rechargez le tableau et réessayez.',
         'transition' => ':title ne peut pas être déplacé de :from vers :to.',

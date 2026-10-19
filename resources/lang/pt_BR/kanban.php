@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 return [
 
+    'page' => [
+        'title' => 'Quadro: :label',
+    ],
+
     'validation' => [
         'unknown_column' => 'Essa coluna não existe. Recarregue o quadro e tente novamente.',
         'transition' => ':title não pode ser movido de :from para :to.',

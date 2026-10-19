@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 return [
 
+    'page' => [
+        'title' => 'تابلوی :label',
+    ],
+
     'validation' => [
         'unknown_column' => 'این ستون وجود ندارد. تابلو را دوباره بارگذاری کنید و دوباره تلاش کنید.',
         'transition' => ':title را نمی‌توان از :from به :to منتقل کرد.',

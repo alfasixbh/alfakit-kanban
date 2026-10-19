@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 return [
 
+    'page' => [
+        'title' => ':labelボード',
+    ],
+
     'validation' => [
         'unknown_column' => 'その列は存在しません。ボードを再読み込みしてもう一度お試しください。',
         'transition' => ':title を :from から :to に移動することはできません。',
