@@ -17,6 +17,7 @@ use AlfaSix\Alfakit\Schemas\Components\Group;
 use AlfaSix\Alfakit\Schemas\Schema;
 use AlfaSix\Alfakit\Support\Authorization;
 use AlfaSix\Alfakit\Support\EnumState;
+use AlfaSix\Alfakit\Support\Html;
 use AlfaSix\Alfakit\Tables\Filters\BaseFilter;
 use AlfaSix\AlfakitKanban\Card;
 use AlfaSix\AlfakitKanban\Column;
@@ -31,6 +32,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\HtmlString;
 use Illuminate\Validation\ValidationException;
 use UnitEnum;
 
@@ -427,7 +429,7 @@ trait InteractsWithKanban
             $value = $record->getAttribute($attribute);
 
             match ($method) {
-                'description' => $card->description(is_scalar($value) ? (string) $value : null),
+                'description' => $card->description(is_scalar($value) ? static::plainCardText((string) $value) : null),
                 'dueDate' => $card->dueDate($value instanceof DateTimeInterface || is_string($value) ? $value : null),
                 'progress' => $card->progress(is_numeric($value) ? (float) $value : null),
                 'coverImage' => $card->coverImage(is_string($value) ? $value : null),
@@ -435,6 +437,21 @@ trait InteractsWithKanban
         }
 
         return $card;
+    }
+
+    /**
+     * A description from a rich editor (`<p>Hello</p>`) shows as its text, never as markup.
+     */
+    protected static function plainCardText(string $value): string
+    {
+        if (! str_contains($value, '<')) {
+            return $value;
+        }
+
+        // Keep words of separate blocks apart once the tags are gone.
+        $spaced = (string) preg_replace('/<\/(p|div|li|h[1-6]|blockquote|pre)>|<br\s*\/?>/i', '$0 ', $value);
+
+        return trim((string) preg_replace('/\s+/u', ' ', Html::toText(new HtmlString($spaced))));
     }
 
     /**

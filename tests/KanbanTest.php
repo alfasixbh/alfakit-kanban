@@ -138,6 +138,17 @@ it('renders the board with enum columns, ordered cards and their content', funct
         ->and($card)->not->toHaveKey('movable');
 });
 
+it('shows a rich text description as its text', function (): void {
+    kanbanPanel();
+    kanbanTest()->actingAs(kanbanUser());
+    kanbanTask('Rich', sort: 1, attributes: ['description' => '<p>Hello <strong>team</strong>.</p><p>Second&nbsp;line &amp; more</p>']);
+
+    [, $board] = kanbanPage();
+
+    // Before: the card read "<p>Hello <strong>team</strong>.</p>…".
+    expect(kanbanColumn($board, 'todo')['cards'][0]['description'])->toBe('Hello team. Second line & more');
+});
+
 it('titles the board page after the board, not the resource list', function (): void {
     kanbanPanel();
     kanbanTest()->actingAs(kanbanUser());
