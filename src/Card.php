@@ -146,7 +146,8 @@ class Card
     }
 
     /**
-     * The due date; a past date marks the card overdue unless `overdue(false)`.
+     * The due date; a past date marks the card overdue unless `overdue(false)`. A date at
+     * midnight (no time) is due until the end of that day.
      */
     public function dueDate(DateTimeInterface|string|null $date): static
     {
@@ -177,7 +178,14 @@ class Card
 
     public function isOverdue(): bool
     {
-        return $this->isOverdue ?? ($this->dueDate !== null && $this->dueDate->isPast());
+        if ($this->isOverdue !== null || $this->dueDate === null) {
+            return (bool) $this->isOverdue;
+        }
+
+        // A date without a time (a `date` column, a DatePicker) is due until the end of that day.
+        return $this->dueDate->isStartOfDay()
+            ? $this->dueDate->endOfDay()->isPast()
+            : $this->dueDate->isPast();
     }
 
     /**

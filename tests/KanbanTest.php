@@ -482,3 +482,13 @@ it('takes columns from a closure, enum cases or plain values', function (): void
         ->and(AlfaSix\AlfakitKanban\Column::make('x')->color('javascript:alert(1)')->getColor())->toBeNull()
         ->and(AlfaSix\AlfakitKanban\Column::make('x')->color('#f59e0b')->getColor())->toBe('#f59e0b');
 });
+
+it('marks a date-only due date overdue only after that day', function (): void {
+    $this->travelTo(Carbon\CarbonImmutable::parse('2026-10-25 15:00:00'));
+
+    expect(AlfaSix\AlfakitKanban\Card::make(new Task)->dueDate('2026-10-25')->isOverdue())->toBeFalse()
+        ->and(AlfaSix\AlfakitKanban\Card::make(new Task)->dueDate('2026-10-24')->isOverdue())->toBeTrue()
+        ->and(AlfaSix\AlfakitKanban\Card::make(new Task)->dueDate('2026-10-25 09:00:00')->isOverdue())->toBeTrue()
+        ->and(AlfaSix\AlfakitKanban\Card::make(new Task)->dueDate('2026-10-30')->overdue()->isOverdue())->toBeTrue()
+        ->and(AlfaSix\AlfakitKanban\Card::make(new Task)->isOverdue())->toBeFalse();
+});
