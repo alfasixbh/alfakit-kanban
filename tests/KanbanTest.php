@@ -231,6 +231,42 @@ it('refuses moves the server does not allow', function (array $move, string $mes
     'a stale neighbour' => [['column' => 'review', 'after' => 999], 'The board changed in the meantime. Reload it and try again.'],
 ]);
 
+it('refuses a skipped transition and keeps the card, then saves each allowed step (UR-02)', function (): void {
+    kanbanPanel();
+    kanbanTest()->actingAs(kanbanUser());
+    $task = kanbanTask('Order 1', TaskStatus::Done, 1);
+    [$token, $board] = kanbanPage();
+
+    // The board tells the renderers which columns a Done card may enter.
+    expect($board['transitions']['done'])->toBe(['review', 'done']);
+
+    kanbanMove($token, $task, ['column' => 'todo'])
+        ->assertUnprocessable()
+        ->assertJsonPath('errors.kanban.0', 'Order 1 cannot be moved from Done to To do.');
+
+    [, $board] = kanbanPage();
+
+    expect($task->refresh()->status)->toBe(TaskStatus::Done)
+        ->and(kanbanTitles($board, 'done'))->toBe(['Order 1'])
+        ->and(kanbanColumn($board, 'done')['count'])->toBe(1)
+        ->and(kanbanColumn($board, 'todo')['count'])->toBe(0);
+
+    // Done → Review → Done, one allowed step at a time; the board shows it after a reload.
+    kanbanMove($token, $task, ['column' => 'review'])->assertOk()
+        ->assertJsonPath('result.card.title', 'Order 1')
+        ->assertJsonPath('result.counts', ['done' => 0, 'review' => 1]);
+    expect($task->refresh()->status)->toBe(TaskStatus::Review);
+
+    kanbanMove($token, $task, ['column' => 'done'])->assertOk()
+        ->assertJsonPath('result.counts', ['review' => 0, 'done' => 1]);
+
+    [, $board] = kanbanPage();
+
+    expect($task->refresh()->status)->toBe(TaskStatus::Done)
+        ->and(kanbanTitles($board, 'done'))->toBe(['Order 1'])
+        ->and(kanbanTitles($board, 'review'))->toBe([]);
+});
+
 it('lets a soft WIP limit be exceeded', function (): void {
     kanbanPanel();
     kanbanTest()->actingAs(kanbanUser());
